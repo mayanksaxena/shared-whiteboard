@@ -1,0 +1,83 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Shared Whiteboard</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <style>
+      canvas {
+        border: 1px solid #000;
+      }
+      .itext {
+        width: 300px;
+        background: transparent;
+        position: absolute;
+        z-index: 2;
+      }
+      #drawing-mode {
+        margin-bottom: 10px;
+        vertical-align: top;
+      }
+      #drawing-mode-options {
+        display: inline-block;
+        vertical-align: top;
+        margin-bottom: 10px;
+        margin-top: 10px;
+        background: #f5f2f0;
+        padding: 10px;
+      }
+      label {
+        display: inline-block; width: 130px;
+      }
+      .info {
+        display: inline-block;
+        width: 25px;
+        background: #ffc;
+      }
+      #bd-wrapper {
+        min-width: 1500px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="row">
+      <div class="col-xs-12 col-sm-6 col-md-6">
+        <canvas id="c" width="500" height="500" style="border:1px solid #aaa"></canvas>
+      </div>
+      <div class="col-xs-12 col-sm-6 col-md-6">
+        <div style="display: inline-block; margin-left: 10px">
+          <button id="clear-canvas" class="btn btn-info">Clear</button><br>
+
+          <div id="drawing-mode-options">
+            <label for="drawing-mode-selector">Mode:</label>
+            <select id="drawing-mode-selector">
+              <option>Pencil</option>
+              <option>Circle</option>
+              <option>Spray</option>
+              <option>Pattern</option>
+
+              <option>hline</option>
+              <option>vline</option>
+              <option>square</option>
+              <option>diamond</option>
+              <option>texture</option>
+            </select><br>
+
+            <label for="drawing-line-width">Line width:</label>
+            <span class="info">30</span><input type="range" value="30" min="0" max="150" id="drawing-line-width"><br>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="//cdn.socket.io/socket.io-1.2.0.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/fabric.js/1.7.14/fabric.min.js"></script>
+    <script type="text/javascript" src="/canvas.js"></script>
+    <script>
+      $(function () {
+        var socket = io();
+        new realTimeCanvas(socket);
+      });
+    </script>
+  </body>
+</html>
